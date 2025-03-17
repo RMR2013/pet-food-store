@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Food Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .header {
+            background-color: #ff9800;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .product {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .product img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .contact-form {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+    </style>
+    <script src="https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/kwcnAq05977433883235.js"></script>
+</head>
+<body>
+    <div class="header">Welcome to Pet Food Store</div>
+    <div class="container">
+        <h2>Our Products</h2>
+        <div class="product">
+            <img src="dog-food.jpg" alt="Dog Food">
+            <h3>Dog Food</h3>
+            <p>High-quality food for your beloved dogs.</p>
+            <button onclick="startPayment('20.00')">Buy Now</button>
+        </div>
+        <div class="product">
+            <img src="cat-food.jpg" alt="Cat Food">
+            <h3>Cat Food</h3>
+            <p>Nutritious meals for your lovely cats.</p>
+            <button onclick="startPayment('15.00')">Buy Now</button>
+        </div>
+    </div>
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required><br><br>
+            <input type="email" placeholder="Your Email" required><br><br>
+            <textarea placeholder="Your Message" required></textarea><br><br>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+    <script>
+        function startPayment(amount) {
+            var config = {
+                "root": "",
+                "flow": "DEFAULT",
+                "data": {
+                    "orderId": "ORDERID_RMR001", 
+                    "token": "kwcnAq05977433883235", 
+                    "tokenType": "TXN_TOKEN",
+                    "amount": amount 
+                },
+                "handler": {
+                    "notifyMerchant": function(eventName, data) {
+                        console.log("Event Name: ", eventName, "Data: ", data);
+                    }
+                }
+            };
+            window.Paytm.CheckoutJS.init(config).then(function() {
+                window.Paytm.CheckoutJS.invoke();
+            }).catch(function(error) {
+                console.log("Error: ", error);
+            });
+        }
+    </script>
+</body>
+</html>
